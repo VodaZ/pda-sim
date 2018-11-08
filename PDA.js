@@ -69,9 +69,7 @@ const makeM = (δ, q0, Z0, F) => w => {
   };
           
   const cond = state => state.noWay === false && (state.input.length !== 0 || state.stack.length !== 0);
-  const f = state => {
-    // STACK_TOP je napravo
-        
+  const f = state => {        
     const stackTop = head(state.stack);
     const restOfStack = tail(state.stack);
     const a = pipe(
@@ -130,7 +128,7 @@ const makeM = (δ, q0, Z0, F) => w => {
   return boolResult;
 };
 
-//////////
+////////// DEFINITION /////////
 const rawδ = [['q0','ε','#','',[]],
   ['q0','#','#','q1',['#']],
   ['q0','0','#','q0',['#']],
@@ -213,62 +211,6 @@ const Γ = get(2);
 //////////
 
 const M = makeM(δ, q0, Z0, Fi);
-
-const getVariations = (T, len) => {
-  const f = (a, b) => [].concat(...a.map(d => b.map(e => [].concat(d, e))));
-  const cartesian = (a, b, ...c) => (b ? cartesian(f(a, b), ...c) : a);
-  
-  const sets = Array(len).fill(T);
-
-  return cartesian(...sets);
-}
-
-const generateStringsOfLength = len => getVariations([0, 1, 2], len);
-
-const generateStringsToLength = pipe(
-  add(1),
-  range(1),
-  map(generateStringsOfLength),
-  reduce(concat, []),
-  map(when(complement(Array.isArray), x => [x]))
-);
-
-const computeDigitSumAndJoin = a => ({d: R.join('', a), sum: R.sum(a)});
-
-const machineTester = (M, maxLen) => {  
-  const possibleStrings = pipe(
-    generateStringsToLength,
-    map(computeDigitSumAndJoin),
-  )(maxLen);
-      
-  const tupples = getVariations(possibleStrings, 2);
-    
-  return map(([before, after]) => {
-    const input = `${before.d}#${after.d}`;
-    const expected = before.sum === after.sum;
-    const result = M(input);
-    const equals = expected === result;
-    
-    return {input, expected, result, equals};
-    
-  }, tupples);
-};
-
-const machineResultToString = ({input, expected, result, equals}) => `${equals} (${expected} === ${result}): \t\t${input}`;
-
-/*
-const log = pipe(
-  machineTester,
-  //map(machineResultToString),
-  //reject(prop('equals'))
-)(M, 2);
-
-console.table(log);
-*/
-
-console.log('DONE');
-
-
 
 M('00102#11100')
                                              
