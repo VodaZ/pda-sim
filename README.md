@@ -35,7 +35,8 @@ In code, rawδ is defined as array of rules, for example:
 const rawδ = [
   ['q0','#','#','q1',['#']],
   ['q0','2','Z1','q0',['Z1','Z2']],
-  ['q1','0','Z1','q1',['Z1']]
+  ['q1','0','Z1','q1',['Z1']],
+  ...
 ];
 ```
 
