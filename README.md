@@ -40,7 +40,13 @@ const rawδ = [
 ];
 ```
 
-Where rule is also array. From left:
+Where rule is also array. 
+
+```javascript
+['q0','2','Z1','q0',['Z1','Z2']]
+```
+
+From left:
 
 * state to start from
 * symbol to read from input (ε marks no symbol read)
