@@ -1,6 +1,6 @@
 The aim of is project was to create function which tells, whether string is accepted by PDA or not.
 
-!! This project is was tested in Ramda REPL (https://ramdajs.com/repl)
+!! This project was tested in Ramda REPL (https://ramdajs.com/repl)
 
 
 PDA definition
